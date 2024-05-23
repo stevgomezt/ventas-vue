@@ -27,3 +27,18 @@ npm run dev
 ```sh
 npm run build
 ```
+
+npm create vite@latest
+vue
+customize
+router
+pinia
+
+npm i -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p
+
+main.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
