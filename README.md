@@ -42,3 +42,5 @@ main.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+npm i @formkit/vue
