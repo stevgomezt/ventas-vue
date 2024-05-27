@@ -1,5 +1,9 @@
 <script setup>
 import Link from "@/components/Link.vue";
+import useImage from "../../composables/useImage.js";
+
+// solo los composables pueden extraersen de esta forma, los Store no porque rompen la reactividad
+const { url, onFileChange, isImageUploaded } = useImage();
 </script>
 
 <template>
@@ -9,7 +13,11 @@ import Link from "@/components/Link.vue";
 
         <div class="flex justify-center bg-white shadow">
             <div class="mt-10 p-10 w-full 2xl:w-2/4">
-                <FormKit type="form" submit-label="Agregar Producto">
+                <FormKit
+                    type="form"
+                    submit-label="Agregar Producto"
+                    incomplete-message="No se pudo enviar, revisa los mensajes"
+                >
                     <FormKit
                         type="text"
                         label="Nombre"
@@ -29,9 +37,20 @@ import Link from "@/components/Link.vue";
                         :validation-messages="{
                             required: 'La imagen del producto es obligatoria',
                         }"
-                        accept=".jgp"
+                        accept=".jpg"
                         multiple="false"
+                        @change="onFileChange"
                     />
+
+                    <div v-if="isImageUploaded">
+                        <p class="font-black">Imagen del producto</p>
+                        <img
+                            :src="isImageUploaded"
+                            alt="Nueva imagen producto"
+                            class="w-32"
+                        />
+                        <!-- <img :src="url" alt=""> -->
+                    </div>
 
                     <FormKit
                         type="select"

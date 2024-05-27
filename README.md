@@ -49,3 +49,7 @@ npm i -D @tailwindcss/forms
 
 Se debe crear el archivo formkit.config.js e importarse en el main
 https://formkit.com/inputs/text
+
+npm install firebase
+npm install vuefire
+npm i uid
