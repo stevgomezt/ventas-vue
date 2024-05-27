@@ -44,3 +44,8 @@ main.css
 @tailwind utilities;
 
 npm i @formkit/vue
+npm i @formkit/themes
+npm i -D @tailwindcss/forms
+
+Se debe crear el archivo formkit.config.js e importarse en el main
+https://formkit.com/inputs/text
