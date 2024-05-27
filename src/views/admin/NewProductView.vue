@@ -106,8 +106,8 @@ const submitHandler = async (data) => {
                         :validation-messages="{
                             required: 'El precio del producto es obligatorio',
                         }"
-                        min="10000"
-                        step="1000"
+                        min="1"
+                        step="1"
                         v-model.number="formData.price"
                     />
 
