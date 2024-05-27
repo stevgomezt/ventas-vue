@@ -1,9 +1,24 @@
 <script setup>
+import { reactive } from "vue";
 import Link from "@/components/Link.vue";
 import useImage from "../../composables/useImage.js";
+import { useProductsStore } from "../../stores/products.js";
 
 // solo los composables pueden extraersen de esta forma, los Store no porque rompen la reactividad
 const { url, onFileChange, isImageUploaded } = useImage();
+const products = useProductsStore();
+
+const formData = reactive({
+    name: "",
+    category: "",
+    price: "",
+    availability: "",
+    image: "",
+});
+
+const submitHandler = (data) => {
+    console.log(data);
+};
 </script>
 
 <template>
@@ -17,7 +32,10 @@ const { url, onFileChange, isImageUploaded } = useImage();
                     type="form"
                     submit-label="Agregar Producto"
                     incomplete-message="No se pudo enviar, revisa los mensajes"
+                    @submit="submitHandler"
+                    :value="formData"
                 >
+                    <!-- .trim sirve para quitar los espacios en blanco -->
                     <FormKit
                         type="text"
                         label="Nombre"
@@ -27,6 +45,7 @@ const { url, onFileChange, isImageUploaded } = useImage();
                         :validation-messages="{
                             required: 'El nombre del producto es obligatorio',
                         }"
+                        v-model.trim="formData.name"
                     />
 
                     <FormKit
@@ -40,6 +59,7 @@ const { url, onFileChange, isImageUploaded } = useImage();
                         accept=".jpg"
                         multiple="false"
                         @change="onFileChange"
+                        v-model.trim="formData.image"
                     />
 
                     <div v-if="isImageUploaded">
@@ -61,7 +81,8 @@ const { url, onFileChange, isImageUploaded } = useImage();
                             required:
                                 'La categoria del producto es obligatoria',
                         }"
-                        :options="[1, 2, 3, 4, 5]"
+                        :options="products.categoryOptions"
+                        v-model.number="formData.category"
                     />
 
                     <FormKit
@@ -75,6 +96,7 @@ const { url, onFileChange, isImageUploaded } = useImage();
                         }"
                         min="10000"
                         step="1000"
+                        v-model.number="formData.price"
                     />
 
                     <FormKit
@@ -87,6 +109,7 @@ const { url, onFileChange, isImageUploaded } = useImage();
                             required: 'La cantidad es obligatoria',
                         }"
                         min="1"
+                        v-model.number="formData.availability"
                     />
                 </FormKit>
             </div>
