@@ -25,6 +25,10 @@ export const useProductsStore = defineStore('products', () => {
 
   const productsCollection = useCollection(q)
 
+  const filteredProducts = computed(() => {
+    return productsCollection.value
+  })
+
   const categoryOptions = computed(() => {
     const options = [
       { label: 'Seleccione una categoria', value: '', attrs: { disabled: true } },
@@ -78,14 +82,13 @@ export const useProductsStore = defineStore('products', () => {
     }
   }
 
-
-
   return {
     createProduct,
     updateProduct,
     deleteProduct,
     productsCollection,
     categoryOptions,
-    noResults
+    noResults,
+    filteredProducts
   }
 })
