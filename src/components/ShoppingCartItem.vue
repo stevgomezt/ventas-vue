@@ -1,6 +1,6 @@
 <script setup>
-import { formatCurrency } from "../helpers/index.js";
 import { useCartStore } from "../stores/cart.js";
+import { formatCurrency } from "../helpers/index.js";
 
 const cart = useCartStore();
 
@@ -22,10 +22,11 @@ defineProps({
         <div class="flex-auto space-y-2">
             <h3 class="text-gray-900">{{ item.name }}</h3>
             <p>{{ formatCurrency(item.price) }}</p>
+
             <select
-                name=""
-                id=""
                 class="w-32 text-center p-2 rounded-lg bg-white"
+                @change="cart.updateQuantity(item.id, +$event.target.value)"
+                :value="item.quantity"
             >
                 <option
                     v-for="n in cart.checkProductAvailability(item)"
