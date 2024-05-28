@@ -1,6 +1,9 @@
 <script setup>
 // import { useCartStore } from "../stores/cart";
 import { formatCurrency } from "../helpers";
+import { useCartStore } from "../stores/cart.js";
+
+const cart = useCartStore()
 
 // const cart = useCartStore();
 
