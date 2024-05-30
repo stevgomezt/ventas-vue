@@ -1,17 +1,16 @@
 <script setup>
 import { ref } from "vue";
 import VueTailwindDatePicker from "vue-tailwind-datepicker";
-import { useSalesStore } from "../../stores/sales.js";
+import { useSalesStore } from "../../stores/sales";
 import SaleDetails from "../../components/SaleDetails.vue";
+import { formatCurrency } from "../../helpers";
 
 const sales = useSalesStore();
 
 const formatter = ref({
-    date: "DD-MM-YYYY",
-    mounth: "MMMM",
+    date: "DD/MM/YYYY",
+    month: "MMMM",
 });
-
-console.log(sales.salesCollection);
 </script>
 
 <template>
@@ -36,14 +35,24 @@ console.log(sales.salesCollection);
             </p>
             <p class="text-center text-lg" v-else>Selecciona una fecha</p>
 
-            <div class="space-y-5">
+            <div v-if="sales.salesCollection.length" class="space-y-5">
+                <p class="text-right text-2xl">
+                    Total del dia :
+                    <span class="font-black">{{
+                        formatCurrency(sales.totalSalesDay)
+                    }}</span>
+                </p>
 
-                <SaleDetails 
+                <SaleDetails
                     v-for="sale in sales.salesCollection"
                     :key="sale.id"
                     :sale="sale"
                 />
             </div>
+
+            <p v-else-if="sales.noSales" class="text-lg text-center">
+                No hay ventas en este dia
+            </p>
         </div>
     </div>
 </template>
